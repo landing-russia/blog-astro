@@ -1,0 +1,25 @@
+---
+// component import
+import Footer from "@components/Footer.astro"
+import Nav from "@components/Nav.astro"
+import MainHead from "@layouts/MainHead.astro"
+const {
+  title = "My Astro Blog",
+  description = "My musings about the Astro framework",
+} = Astro.props
+---
+
+<html lang="ru">
+  <MainHead {title} {description} />
+  <body>
+    <div class="h-screen flex flex-col">
+      <Nav />
+      <main>
+        <slot> Default Text</slot>
+      </main>
+      <div class="mt-auto">
+        <Footer />
+      </div>
+    </div>
+  </body>
+</html>

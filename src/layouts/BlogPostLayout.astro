@@ -1,0 +1,19 @@
+---
+// component import
+import PostHeader from "@components/PostHeader.astro";
+import MainLayout from "@layouts/MainLayout.astro";
+
+const { frontmatter } = Astro.props;
+
+const { title, description, date, category, author, image } = frontmatter;
+---
+
+<MainLayout {title} {description}>
+  <PostHeader {title} {description} {date} {category} {image} {author} />
+  <div class="mx-auto">
+    <div class="prose lg:prose-xl prose-headings:text-gray-800 prose-p:text-gray-500 max-w-prose mx-auto p-4 prose-strong:text-gray-600 prose-img:rounded-xl prose-ul:list-none prose-ul:pl-0 prose-li:pl-0">
+      <slot />
+    </div>
+    <div class="sidebar"></div>
+  </div>
+</MainLayout>

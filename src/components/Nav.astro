@@ -1,0 +1,36 @@
+---
+import { Icon } from "astro-icon"
+import navData from "@data/navData"
+---
+
+<nav aria-label="Promary" class="px-4">
+  <div class="flex items-center justify-between">
+    <a href="/" aria-label="Go Home" class="pr-2 py-5 flex items-center space-x-1"
+      ><Icon name="mdi:home" width="26" class="inline-block text-rose-500" />
+      <span class="font-bold text-xl text-slate-600">LogoHome</span></a
+    >
+    <ul class="flex items-center space-x-3">
+      {
+        navData.map((item) => (
+          <a
+            href={item.path}
+            class="px-3 py-1 bg-rose-200 rounded-md font-medium text-slate-700 hover:bg-rose-500 hover:text-red-200"
+            data-navLink
+          >
+            {item.name}
+          </a>
+        ))
+      }
+    </ul>
+  </div>
+</nav>
+
+<script>
+  import "../js/nav.js"
+</script>
+
+<style>
+  [aria-current="page"] {
+    @apply bg-red-500 text-rose-200;
+  }
+</style>
