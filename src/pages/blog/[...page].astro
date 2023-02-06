@@ -1,8 +1,17 @@
 ---
 import MainLayout from "@layouts/MainLayout.astro"
-import { slugify } from "src/js/utils"
+import Pagination from "@components/Pagination.astro"
+import { formatBlogPosts } from "src/js/utils"
+import CategoryCloud from "@components/CategoryCloud.astro"
 
-const allPosts = await Astro.glob("./*.md")
+export async function getStaticPaths({ paginate }) {
+  const allPosts = await Astro.glob("./*.md")
+  const formattedPosts = formatBlogPosts(allPosts)
+  return paginate(formattedPosts, {
+    pageSize: 2,
+  })
+}
+const { page } = Astro.props
 ---
 
 <MainLayout title="Blog">
@@ -11,7 +20,7 @@ const allPosts = await Astro.glob("./*.md")
   >
     <h1 class="text-5xl font-black text-rose-400">Blog</h1>
     {
-      allPosts.map((post) => (
+      page.data.map((post) => (
         <a
           href={post.url}
           class="group p-4 bg-white shadow hover:shadow-lg dark:bg-gray-900 border border-gray-200 hover:border-gray-300 dark:border-gray-700 dark:hover:border-gray-500 rounded-md transition duration-150"
@@ -38,4 +47,7 @@ const allPosts = await Astro.glob("./*.md")
       ))
     }
   </div>
+
+  <Pagination prevUrl={page.url.prev} nextUrl={page.url.next} />
+  <CategoryCloud showCount />
 </MainLayout>
